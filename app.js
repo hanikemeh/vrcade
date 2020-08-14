@@ -36,7 +36,7 @@ app.engine('html', require('ejs').renderFile);
 app.set("view engine", "html");
 
 const server = require('http').Server(app);
-// const io = require('socket.io')(server);
+	const io = require('socket.io')(server);
 
 console.log("resizing")
 console.log("resized")
@@ -74,13 +74,22 @@ app.get('/home', function(request, response) {
 	response.end();
 });
 
-// setInterval(() => {
-//   var frame = wCap.read();
-// 	frame = frame.resize(480, 640)
-//   const image = cv.imencode('.jpg', frame).toString('base64');
-//   io.emit('image', image)
-// }, 1000/FPS)
+ setInterval(() => {
+   var frame = wCap.read();
+ 	frame = frame.resize(480, 640)
+   const image = cv.imencode('.jpg', frame).toString('base64');
+   io.emit('image', image)
+ }, 1000/FPS)
 
+ io.on('connection', function (socket) {
+	 socket.on('move', (msg) => {
+		 console.log("msg received: " + msg)
+		 send_command(msg)
+	})
+ });
+
+
+;
 server.listen(3000, function(){
     console.log("VRcade app server started...");
 });
@@ -94,6 +103,3 @@ var send_command = function(msg) {
 		console.log("close")
 	});
 }
-
-send_command("s");
-setTimeout(send_command, 5000, "");
