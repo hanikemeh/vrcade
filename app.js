@@ -7,6 +7,9 @@ const cv = require('opencv4nodejs');
 
 const FPS = 30;
 const wCap = new cv.VideoCapture(2);
+//wCap.set(3, 640)
+//wCap.set(4, 480)
+//wCap.set(5, 30)
 
 console.log("cap sized")
 
