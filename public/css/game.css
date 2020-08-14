@@ -127,6 +127,9 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
 }
 .set.setbg {
   background: #222;
+  width: 50%;
+  margin-left:auto;
+  margin-right:auto;
 }
 .set.setbg2 {
   background: #5f9837;

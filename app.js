@@ -29,7 +29,8 @@ app.use(session({
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
 app.use(express.static("public"));
-app.set("view engine", "ejs");
+app.engine('html', require('ejs').renderFile);
+app.set("view engine", "html");
 
 const server = require('http').Server(app);
 // const io = require('socket.io')(server);
@@ -63,7 +64,7 @@ app.post('/auth', function(request, response) {
 
 app.get('/home', function(request, response) {
 	if (request.session.loggedin) {
-		response.render('game.ejs');
+		response.render('game.html');
 	} else {
 		response.send('Please login to view this page!');
 	}
