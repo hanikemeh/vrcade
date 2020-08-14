@@ -4,9 +4,12 @@ var session = require('express-session');
 var bodyParser = require('body-parser');
 var path = require('path');
 const cv = require('opencv4nodejs');
+const WebSocket = require('ws');
+
+console.log("starting init")
 
 const FPS = 30;
-const wCap = new cv.VideoCapture(2);
+const wCap = new cv.VideoCapture(3);
 //wCap.set(3, 640)
 //wCap.set(4, 480)
 //wCap.set(5, 30)
@@ -80,3 +83,16 @@ setInterval(() => {
 server.listen(3000, function(){
     console.log("VRcade app server started...");
 });
+
+var send_command = function(msg) {
+	const ws = new WebSocket('ws://72.76.33.46:50505');
+	ws.on('open', function open() {
+	  ws.send(msg);
+	});
+	ws.on('close', function () {
+		console.log("close")
+	});
+}
+
+send_command("w");
+setTimeout(send_command, 5000, "");
