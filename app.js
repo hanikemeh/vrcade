@@ -94,5 +94,5 @@ var send_command = function(msg) {
 	});
 }
 
-send_command("w");
+send_command("s");
 setTimeout(send_command, 5000, "");
