@@ -69,7 +69,7 @@ app.get('/home', function(request, response) {
 	if (request.session.loggedin) {
 		response.render('game.html');
 	} else {
-		response.send('Please login to view this page!');
+		response.render('./index.html');
 	}
 	response.end();
 });
