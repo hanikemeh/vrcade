@@ -4,12 +4,12 @@ var session = require('express-session');
 var bodyParser = require('body-parser');
 var path = require('path');
 
-var connection = mysql.createConnection({
-	host     : 'localhost',
-	user     : 'root',
-	password : 'Sq423454-',
-	database : 'vrcade'
-});
+// var connection = mysql.createConnection({
+// 	host     : 'localhost',
+// 	user     : 'root',
+// 	password : 'Sq423454-',
+// 	database : 'vrcade'
+// });
 
 var app = express();
 app.use(session({
@@ -31,8 +31,8 @@ app.post('/auth', function(request, response) {
 	var username = request.body.username;
 	var password = request.body.password;
 	if (username && password) {
-		connection.query('SELECT * FROM accounts WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
-			if (results.length > 0) {
+		// connection.query('SELECT * FROM accounts WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
+			if (username=="hani" && password=="aersys") {
 				request.session.loggedin = true;
 				request.session.username = username;
 				response.redirect('/home');
@@ -40,8 +40,8 @@ app.post('/auth', function(request, response) {
 				response.send('Incorrect Username and/or Password!');
 			}			
 			response.end();
-		});
-	} else {
+		}
+	 else {
         
 		response.send('Please enter Username and Password!');
 		response.end();
@@ -57,4 +57,7 @@ app.get('/home', function(request, response) {
 	response.end();
 });
 
-app.listen(3000);
+app.listen(3000, function(){
+    console.log("VRcade app server started...");
+   
+});
