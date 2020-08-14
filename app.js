@@ -35,7 +35,7 @@ app.use(express.static("public"));
 app.set("view engine", "ejs");
 
 const server = require('http').Server(app);
-const io = require('socket.io')(server);
+// const io = require('socket.io')(server);
 
 console.log("resizing")
 console.log("resized")
@@ -73,12 +73,12 @@ app.get('/home', function(request, response) {
 	response.end();
 });
 
-setInterval(() => {
-  var frame = wCap.read();
-	frame = frame.resize(480, 640)
-  const image = cv.imencode('.jpg', frame).toString('base64');
-  io.emit('image', image)
-}, 1000/FPS)
+// setInterval(() => {
+//   var frame = wCap.read();
+// 	frame = frame.resize(480, 640)
+//   const image = cv.imencode('.jpg', frame).toString('base64');
+//   io.emit('image', image)
+// }, 1000/FPS)
 
 server.listen(3000, function(){
     console.log("VRcade app server started...");
