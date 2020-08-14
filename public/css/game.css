@@ -113,6 +113,15 @@ a:hover .left:after, a:hover .top:after, a:hover .bottom:after, a:hover .right:a
   transform: rotate(45deg);
 } */
 
+body{
+  background-color: #222323;
+}
+
+img{
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .set {
   overflow: hidden;
   padding: 30px;
