@@ -3,6 +3,12 @@ var express = require('express');
 var session = require('express-session');
 var bodyParser = require('body-parser');
 var path = require('path');
+const cv = require('opencv4nodejs');
+
+const FPS = 30;
+const wCap = new cv.VideoCapture(2);
+
+console.log("cap sized")
 
 // var connection = mysql.createConnection({
 // 	host     : 'localhost',
@@ -22,7 +28,11 @@ app.use(bodyParser.json());
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
 
+console.log("resizing")
+console.log("resized")
 app.get('/', function(request, response) {
 	response.sendFile(path.join(__dirname + '/index.html'));
 });
@@ -57,7 +67,13 @@ app.get('/home', function(request, response) {
 	response.end();
 });
 
-app.listen(3000, function(){
-    console.log("VRcade app server started...");
+setInterval(() => {
+  var frame = wCap.read();
+	frame = frame.resize(480, 640)
+  const image = cv.imencode('.jpg', frame).toString('base64');
+  io.emit('image', image)
+}, 1000/FPS)
 
+server.listen(3000, function(){
+    console.log("VRcade app server started...");
 });

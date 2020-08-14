@@ -1,38 +1,48 @@
 <link rel="stylesheet" type="text/css" href="css/game.css">
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+
+<script>
+  const socket = io.connect('http://72.76.33.46:3000');
+  socket.on('image', (image) => {
+    const imageElm = document.getElementById('image');
+    imageElm.src = `data:image/jpeg;base64,${image}`;
+  });
+</script>
 
 <div class="row">
-    <iframe src="" frameborder="0"></iframe>
+  <img id="image">
 </div>
 
+<script>
+
 <div class="row">
-  
+
     <body>
-  
+
         <div>
           <a href="#">
             <span class="left"></span>
           </a>
         </div>
-        
+
         <div>
           <a href="#">
             <span class="top"></span>
           </a>
         </div>
-        
+
         <div>
           <a href="#">
             <span class="bottom"></span>
           </a>
         </div>
-        
+
         <div>
           <a href="#">
             <span class="right"></span>
           </a>
         </div>
-        
+
       </body>
 </div>
-
